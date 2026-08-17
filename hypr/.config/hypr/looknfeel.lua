@@ -6,6 +6,3 @@ hl.config({
     gaps_out = 3,
   },
 })
-
--- Fast workspace transitions.
-hl.animation({ leaf = "workspaces", enabled = true, speed = 50, bezier = "quick" })
