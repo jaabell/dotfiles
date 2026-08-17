@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "jaabell.vnc-mode",
+  "name": "VNC Mode",
+  "version": "1.0.0",
+  "author": "jaabell",
+  "description": "Shows VNC MODE indicator when VNC submap is active",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "VncMode.qml"
+  },
+  "barWidget": {
+    "displayName": "VNC Mode",
+    "description": "Shows VNC MODE when VNC submap is active",
+    "category": "Compositor",
+    "allowMultiple": false
+  }
+}

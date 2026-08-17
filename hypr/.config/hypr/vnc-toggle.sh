@@ -31,5 +31,5 @@ else:
 " > "$BORDER_FILE"
     touch "$STATE_FILE"
     hyprctl eval 'hl.config({ general = { col = { active_border = "rgba(255,0,0,0.93)" } } })'
-    notify-send -u critical -t 0 "VNC Mode" "ON - All keys pass through to VNC"
+    notify-send -u low -t 2000 "VNC Mode" "ON - All keys pass through to VNC"
 fi
