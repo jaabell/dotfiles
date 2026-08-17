@@ -28,5 +28,7 @@ o.bind("SUPER + SHIFT + SLASH", "Passwords", "uwsm-app -- 1password")
 o.bind("SUPER + D", "Docker", "omarchy-launch-tui lazydocker")
 o.bind("SUPER + SHIFT + T", "Activity", "omarchy-launch-tui btop")
 
--- VNC submap is defined in vnc-submap.conf (sourced by hyprland.conf)
--- because the Lua API doesn't support submaps.
+-- VNC submap: SUPER+SHIFT+V toggles passthrough mode with red border cue.
+local vnc_script = os.getenv("HOME") .. "/.config/hypr/vnc-toggle.sh"
+hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(vnc_script), { description = "VNC mode" })
+hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(vnc_script), { description = "VNC mode", submap = "vnc" })
