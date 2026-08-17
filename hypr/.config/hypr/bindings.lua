@@ -28,7 +28,5 @@ o.bind("SUPER + SHIFT + SLASH", "Passwords", "uwsm-app -- 1password")
 o.bind("SUPER + D", "Docker", "omarchy-launch-tui lazydocker")
 o.bind("SUPER + SHIFT + T", "Activity", "omarchy-launch-tui btop")
 
--- VNC submap: SUPER+SHIFT+V toggles passthrough mode with red border cue.
-local vnc_script = os.getenv("HOME") .. "/.config/hypr/vnc-toggle.sh"
-hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(vnc_script), { description = "VNC mode" })
-hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(vnc_script), { description = "VNC mode", submap = "vnc" })
+-- VNC mode toggle: red border + notification cue.
+o.bind("SUPER + SHIFT + V", "VNC mode", os.getenv("HOME") .. "/.config/hypr/vnc-toggle.sh")
