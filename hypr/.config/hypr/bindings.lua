@@ -19,6 +19,7 @@ o.bind("SUPER + ALT + A", "ChatGPT Temporary", { webapp = "https://chatgpt.com/?
 o.bind("SUPER + SHIFT + ALT + G", "Telegram", { webapp = "https://web.telegram.org/" })
 o.bind("SUPER + SHIFT + CTRL + G", "Google Messages", { webapp = "https://messages.google.com/web/conversations" })
 o.bind("SUPER + SHIFT + P", "Google Photos", { webapp = "https://photos.google.com/" })
+o.bind("CTRL + E", "Email", { webapp = "https://www.gmail.com/" })
 
 -- VNC submap is defined in vnc-submap.conf (sourced by hyprland.conf)
 -- because the Lua API doesn't support submaps.
