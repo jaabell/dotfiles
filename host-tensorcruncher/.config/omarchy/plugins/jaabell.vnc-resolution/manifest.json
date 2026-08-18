@@ -1,0 +1,16 @@
+{
+  "schemaVersion": 1,
+  "id": "jaabell.vnc-resolution",
+  "name": "VNC Resolution",
+  "version": "1.0.0",
+  "author": "jaabell",
+  "description": "Shows the current HDMI-A-1 resolution.",
+  "kinds": ["bar-widget"],
+  "entryPoints": {"barWidget": "VncResolution.qml"},
+  "barWidget": {
+    "displayName": "VNC Resolution",
+    "description": "Shows the current HDMI-A-1 resolution.",
+    "category": "System",
+    "allowMultiple": false
+  }
+}

@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+# Toggle HDMI-A-1 between native 4K (scale 2) and Full HD (scale 1).
+# Quattro uses Lua configuration, so runtime changes must use hyprctl eval.
+
+MON="HDMI-A-1"
+WIDTH=$(hyprctl -j monitors | jq -r --arg mon "$MON" '.[] | select(.name == $mon) | .width')
+
+if [ "$WIDTH" = "3840" ]; then
+    TARGET_WIDTH=1920
+    TARGET_HEIGHT=1080
+    TARGET_LABEL="Full HD (1920x1080)"
+    COMMAND='hl.monitor({ output = "HDMI-A-1", mode = "1920x1080@60", position = "auto", scale = 1 })'
+else
+    TARGET_WIDTH=3840
+    TARGET_HEIGHT=2160
+    TARGET_LABEL="Native 4K (3840x2160)"
+    COMMAND='hl.monitor({ output = "HDMI-A-1", mode = "preferred", position = "auto", scale = 2 })'
+fi
+
+if ! hyprctl eval "$COMMAND" >/dev/null; then
+    notify-send -u critical -t 3000 "VNC resolution" "Hyprland rejected the resolution change"
+    exit 1
+fi
+
+sleep 0.2
+MODE=$(hyprctl -j monitors | jq -r --arg mon "$MON" '.[] | select(.name == $mon) | "\(.width)x\(.height)"')
+
+if [ "$MODE" = "${TARGET_WIDTH}x${TARGET_HEIGHT}" ]; then
+    notify-send -t 2000 "VNC resolution" "$TARGET_LABEL"
+else
+    notify-send -u critical -t 3000 "VNC resolution" "Change failed; still ${MODE:-unknown}"
+    exit 1
+fi

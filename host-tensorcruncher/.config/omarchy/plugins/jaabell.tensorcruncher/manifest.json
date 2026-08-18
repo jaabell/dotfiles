@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "id": "jaabell.tensorcruncher",
+  "name": "Tensorcruncher",
+  "version": "1.0.0",
+  "author": "jaabell",
+  "description": "Shows the tensorcruncher host name in the Omarchy Shell bar.",
+  "kinds": [
+    "bar-widget"
+  ],
+  "entryPoints": {
+    "barWidget": "Tensorcruncher.qml"
+  },
+  "barWidget": {
+    "displayName": "Tensorcruncher",
+    "description": "Shows the tensorcruncher host name in the bar.",
+    "category": "System",
+    "allowMultiple": false
+  }
+}

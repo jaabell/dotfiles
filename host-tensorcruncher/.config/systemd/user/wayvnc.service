@@ -1,0 +1,12 @@
+[Unit]
+Description=WayVNC server (persistent remote desktop)
+After=graphical-session.target network-online.target
+Wants=network-online.target
+
+[Service]
+ExecStart=/usr/bin/wayvnc --output HDMI-A-1 -k latam 0.0.0.0:5901
+Restart=always
+RestartSec=5
+
+[Install]
+WantedBy=default.target

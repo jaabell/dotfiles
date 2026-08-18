@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+# Legacy Waybar module: show whether HDMI-A-1 uses native or reduced resolution.
+
+WIDTH=$(hyprctl -j monitors | jq -r --arg mon "HDMI-A-1" '.[] | select(.name == $mon) | .width')
+
+if [ "$WIDTH" = "3840" ]; then
+    echo '{"text": "4K", "class": "res-4k"}'
+else
+    echo '{"text": "1080p", "class": "res-reduced"}'
+fi
