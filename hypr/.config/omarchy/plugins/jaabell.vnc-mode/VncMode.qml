@@ -8,18 +8,14 @@ BarWidget {
 
   property bool vncActive: false
 
-  // Watch the state file for changes
   Process {
     id: checkProc
     command: ["test", "-f", "/tmp/vnc-mode"]
     onRunningChanged: {
-      if (!running) {
-        root.vncActive = exitCode === 0
-      }
+      if (!running) root.vncActive = checkProc.exitCode === 0
     }
   }
 
-  // Poll for state changes
   Timer {
     interval: 500
     running: true
@@ -27,7 +23,6 @@ BarWidget {
     onTriggered: checkProc.running = true
   }
 
-  // Also watch the file directly
   FileView {
     path: "/tmp/vnc-mode"
     watchChanges: true
