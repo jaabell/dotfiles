@@ -1,0 +1,9 @@
+# stow / omarchy backup droppings
+*.bak
+*.bak.*
+*.omarchy-upgrade-to-quattro.*
+
+# Per-machine display state, managed live by the Better Displays widget
+# (`omarchy display monitor`). Each host keeps its own real ~/.config/hypr/monitors.lua.
+hypr/.config/hypr/monitors.lua
+hypr/.config/hypr/hyprmoncfg-monitors.lua

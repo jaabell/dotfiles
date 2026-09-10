@@ -7,19 +7,30 @@
           "id": "omarchy.indicators"
         },
         {
-          "format": "dddd HH:mm",
-          "formatAlt": "d MMMM 'W'ww yyyy",
-          "id": "omarchy.clock",
-          "verticalFormat": "HH\n—\nmm"
+          "id": "omarchy.keyboard-layout"
         },
         {
-          "id": "omarchy.keyboard-layout"
+          "id": "omarchy.clock",
+          "format": "ddd d MMM HH:mm",
+          "formatAlt": "d MMMM 'W'ww yyyy",
+          "verticalFormat": "HH\n—\nmm",
+          "birthYear": 1983,
+          "lifeExpectancy": 90
         },
         {
           "id": "omarchy.weather"
         },
         {
+          "id": "better.displays"
+        },
+        {
+          "id": "agx.screen-time"
+        },
+        {
           "id": "omarchy.system-update"
+        },
+        {
+          "id": "io.github.mohuddle.liturgy-of-the-hours"
         }
       ],
       "left": [
@@ -27,21 +38,27 @@
           "id": "omarchy.menu"
         },
         {
-          "id": "omarchy.workspaces"
-        },
-        {
-          "id": "jaabell.tensorcruncher"
-        },
-        {
           "id": "jaabell.vnc-mode"
+        },
+        {
+          "id": "omarchy.workspaces"
         }
       ],
       "right": [
         {
-          "id": "jaabell.vnc-resolution"
+          "id": "omarchy.tray"
         },
         {
-          "id": "omarchy.tray"
+          "id": "jaabell.slashlight"
+        },
+        {
+          "id": "jaabell.sshuttledeck"
+        },
+        {
+          "id": "roymelgarv.omarchy-downloads"
+        },
+        {
+          "id": "omarchy.tailscale"
         },
         {
           "id": "omarchy.dropbox"

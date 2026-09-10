@@ -16,7 +16,14 @@ require("default.hypr.omarchy")
 -- Put your personal overrides in these files. They're loaded after Omarchy's
 -- defaults so package updates can improve the defaults without rewriting your
 -- ~/.config/hypr files.
-require("hypr.host")
+--
+-- monitors.lua = per-machine display state (local, untracked; the Better Displays
+--   widget / `omarchy display monitor` writes it).
+-- host.lua     = per-host overlay, delivered by the host-<hostname> stow package.
+-- Both are optional so a fresh checkout without either file still boots.
+local require_optional = require("default.hypr.require_optional")
+require_optional.module("hypr.monitors")
+require_optional.module("hypr.host")
 require("hypr.input")
 require("hypr.bindings")
 require("hypr.looknfeel")

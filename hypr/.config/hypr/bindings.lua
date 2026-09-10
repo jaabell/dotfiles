@@ -8,6 +8,8 @@ hl.unbind("SUPER + A")
 hl.unbind("SUPER + SHIFT + A")
 hl.unbind("SUPER + SHIFT + G")
 hl.unbind("SUPER + SHIFT + ALT + G")
+hl.unbind("SUPER + SHIFT + S") -- was Google Maps; repurposed for the screen-draw overlay
+hl.unbind("SUPER + SHIFT + D") -- redundant Docker dup (SUPER+D already opens it); reused for blackboard
 
 -- App bindings
 o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
@@ -36,3 +38,28 @@ hl.define_submap("vnc", function()
 end)
 hl.bind("SUPER + SHIFT + V", hl.dsp.submap("vnc"), { description = "Enter VNC mode" })
 hl.bind("SUPER + SHIFT + V", hl.dsp.exec_cmd(vnc_script), { description = "VNC enter notification" })
+
+-- Screen-draw overlay (wayscriber) - toggle on/off like the scratchpad.
+-- Daemon runs via `systemctl --user enable --now wayscriber.service`.
+--   SUPER+SHIFT+S      transparent overlay over the live screen
+--   SUPER+SHIFT+D      opaque blackboard canvas
+--   SUPER+SHIFT+PRINT  freeze the current screen as a still image and draw on it
+-- Each combo toggles: press once to show (on that board), again to hide.
+-- In-overlay: drag = pen, Shift+drag = line, Ctrl+drag = rect, Ctrl+Shift+drag = arrow,
+-- T = text, R/G/B/Y/O/P/W/K = colors, Ctrl+Z/Y = undo/redo, scroll or +/- = size,
+-- Ctrl+W / Ctrl+B / Ctrl+Shift+T = switch to whiteboard / blackboard / transparent, F1 = help.
+-- Note: --no-resume-session on blackboard/freeze is required - otherwise the saved
+-- session restores the transparent board and overrides --mode. It also means those
+-- two open a fresh canvas each time (like wiping a blackboard); the transparent
+-- overlay still persists its annotations between toggles.
+if o.cmd_present("wayscriber") then
+  o.bind("SUPER + SHIFT + S", "Toggle screen-draw overlay", "wayscriber --daemon-toggle --mode transparent")
+  o.bind("SUPER + SHIFT + D", "Toggle blackboard draw", "wayscriber --daemon-toggle --mode blackboard --no-resume-session")
+  o.bind("SUPER + SHIFT + PRINT", "Toggle freeze-frame draw", "wayscriber --daemon-toggle --freeze --no-resume-session")
+end
+
+-- Voice dictation (voxtype) - Spanish with Shift+F9
+if o.cmd_present("voxtype") then
+  o.bind("SHIFT + F9", "Start dictation (Spanish, push-to-talk)", "voxtype record start --profile spanish")
+  o.bind("SHIFT + F9", "Stop dictation (Spanish, push-to-talk)", "voxtype record stop", { release = true })
+end
