@@ -14,7 +14,7 @@ hl.unbind("SUPER + SHIFT + D") -- redundant Docker dup (SUPER+D already opens it
 -- App bindings
 o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
 o.bind("SUPER + C", "Calendar", { webapp = "https://calendar.google.com/calendar/u/0/r?pli=1" })
-o.bind("SUPER + E", "Email", { webapp = "https://www.gmail.com/" })
+o.bind("SUPER + E", "Email", { webapp = "https://www.gmail.com/", focus = "gmail" })
 o.bind("SUPER + A", "ChatGPT", { webapp = "https://chatgpt.com" })
 o.bind("SUPER + ALT + A", "ChatGPT Temporary", { webapp = "https://chatgpt.com/?temporary-chat=true" })
 o.bind("SUPER + SHIFT + A", "Claude", { webapp = "https://claude.ai/" })
