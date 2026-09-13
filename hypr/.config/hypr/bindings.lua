@@ -13,18 +13,23 @@ hl.unbind("SUPER + SHIFT + D") -- redundant Docker dup (SUPER+D already opens it
 
 -- App bindings
 o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
-o.bind("SUPER + C", "Calendar", { webapp = "https://calendar.google.com/calendar/u/0/r?pli=1" })
+-- webapp binds carry an explicit `focus` match (class/title regex) so the key
+-- switches to the existing tab/window instead of silently opening a new one
+-- behind whatever's on screen (Chromium's single-instance launch never
+-- focuses on its own). Composer-style binds (temp chat, new post) are
+-- deliberately left without focus - they're meant to open fresh each time.
+o.bind("SUPER + C", "Calendar", { webapp = "https://calendar.google.com/calendar/u/0/r?pli=1", focus = "calendar" })
 o.bind("SUPER + E", "Email", { webapp = "https://www.gmail.com/", focus = "gmail" })
-o.bind("SUPER + A", "ChatGPT", { webapp = "https://chatgpt.com" })
+o.bind("SUPER + A", "ChatGPT", { webapp = "https://chatgpt.com", focus = "chatgpt" })
 o.bind("SUPER + ALT + A", "ChatGPT Temporary", { webapp = "https://chatgpt.com/?temporary-chat=true" })
-o.bind("SUPER + SHIFT + A", "Claude", { webapp = "https://claude.ai/" })
-o.bind("SUPER + X", "X", { webapp = "https://x.com/" })
+o.bind("SUPER + SHIFT + A", "Claude", { webapp = "https://claude.ai/", focus = "claude" })
+o.bind("SUPER + X", "X", { webapp = "https://x.com/", focus = "x.com" })
 o.bind("SUPER + SHIFT + X", "X Post", { webapp = "https://x.com/compose/post" })
-o.bind("SUPER + Y", "YouTube", { webapp = "https://youtube.com/" })
-o.bind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/" })
-o.bind("SUPER + SHIFT + ALT + G", "Telegram", { webapp = "https://web.telegram.org/" })
-o.bind("SUPER + SHIFT + CTRL + G", "Google Messages", { webapp = "https://messages.google.com/web/conversations" })
-o.bind("SUPER + SHIFT + P", "Google Photos", { webapp = "https://photos.google.com/" })
+o.bind("SUPER + Y", "YouTube", { webapp = "https://youtube.com/", focus = "youtube" })
+o.bind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = "whatsapp" })
+o.bind("SUPER + SHIFT + ALT + G", "Telegram", { webapp = "https://web.telegram.org/", focus = "telegram" })
+o.bind("SUPER + SHIFT + CTRL + G", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = "messages.google" })
+o.bind("SUPER + SHIFT + P", "Google Photos", { webapp = "https://photos.google.com/", focus = "photos.google" })
 o.bind("SUPER + SHIFT + W", "Typora", "uwsm-app -- typora --enable-wayland-ime")
 o.bind("SUPER + SHIFT + SLASH", "Passwords", "uwsm-app -- 1password")
 o.bind("SUPER + D", "Docker", "omarchy-launch-tui lazydocker")
