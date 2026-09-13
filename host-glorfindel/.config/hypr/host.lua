@@ -8,3 +8,6 @@
 
 hl.env("GDK_SCALE", "1")
 hl.monitor({ output = "eDP-2", mode = "preferred", position = "auto", scale = 1 })
+
+-- Laptop screenshot shortcut (in addition to the default PRINT key).
+o.bind("SUPER + F6", "Screenshot", "omarchy-capture-screenshot")
