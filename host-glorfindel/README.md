@@ -32,3 +32,38 @@ should show `Lid closed.` + `Suspending...`.
 2. `cat /proc/acpi/button/lid/LID0/state` — must report actual position.
 3. Close lid, confirm `journalctl -u systemd-logind` shows suspend.
 4. If any of the above fails, re-append the param and `sudo limine-install`.
+
+## modprobe.d customizations (NOT in this repo — live in /etc/modprobe.d/, root-owned)
+
+### zz-nvidia-power.conf: NVIDIA S0ix suspend/resume fix (2026-09-23)
+
+Same root-cause family as the lid fix above: this GA403UM's NVIDIA GPU was
+failing to suspend cleanly (dmesg: `nv_pmops_freeze` returning `-5`,
+`pci_pm_freeze()` failing). Fixed with:
+
+    options nvidia NVreg_EnableS0ixPowerManagement=1 NVreg_PreserveVideoMemoryAllocations=0
+
+in `/etc/modprobe.d/zz-nvidia-power.conf` (the `zz-` prefix sorts it after
+the packaged `nvidia.conf`, since modprobe options accumulate/override in
+file-name order). Went through a couple of filenames while landing on this
+(`30-nvidia-s0ix.conf`, `99-nvidia-power.conf`) — only `zz-nvidia-power.conf`
+is current; the others were removed.
+
+Not owned by any package. Omarchy's own `nvidia.sh` installer only ever
+writes `/etc/modprobe.d/nvidia.conf` (just `nvidia_drm modeset=1`) — a plain
+`omarchy update` doesn't touch this file, so it's safe across updates. Still
+worth checking after an NVIDIA driver upgrade or a fresh install, since
+(like the lid fix) it's invisible to git either way.
+
+modprobe.d options only apply the next time the `nvidia` module loads (the
+core module unloads itself when the dGPU is runtime-suspended on this
+hybrid laptop, so it may not be loaded right now — a reboot guarantees a
+fresh load either way).
+
+**Verify it's active (after a reboot or a fresh module load):**
+`cat /sys/module/nvidia/parameters/EnableS0ixPowerManagement` — module not
+loaded means that path won't exist yet; that's expected until something
+touches the dGPU.
+**Verify suspend/resume is clean:** suspend then resume, then
+`journalctl -b | grep -iE "pci_pm_freeze|nv_pmops_freeze"` should show no new
+freeze errors.
