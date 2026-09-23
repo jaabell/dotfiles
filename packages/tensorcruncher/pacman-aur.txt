@@ -1,0 +1,11 @@
+anydesk-bin
+gromit-mpx
+hdfview-bin
+obs-backgroundremoval
+python310
+rustdesk-bin
+rustdesk-server
+snapd
+telegram-a-appimage
+wayscriber-bin
+winboat-bin
