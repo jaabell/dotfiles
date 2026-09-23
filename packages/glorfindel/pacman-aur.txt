@@ -1,0 +1,2 @@
+libredwg-git
+libredwg-git-debug

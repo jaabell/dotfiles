@@ -1,0 +1,7 @@
+[tools]
+claude = "latest"
+codex = "latest"
+gh = "latest"
+java = "corretto-17.0.20.10.1"
+node = "latest"
+opencode = "latest"
