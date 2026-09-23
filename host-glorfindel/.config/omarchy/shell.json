@@ -49,7 +49,9 @@
           "id": "omarchy.tray"
         },
         {
-          "id": "jaabell.slashlight"
+          "id": "jaabell.slashlight",
+          "interval": 5,
+          "mode": "Slash"
         },
         {
           "id": "jaabell.sshuttledeck"

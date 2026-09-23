@@ -2,10 +2,10 @@
 
 -- Unbind defaults that conflict with my custom bindings.
 hl.unbind("SUPER + O")
-hl.unbind("SUPER + C")
 hl.unbind("SUPER + X")
 hl.unbind("SUPER + A")
 hl.unbind("SUPER + SHIFT + A")
+hl.unbind("SUPER + SHIFT + C")
 hl.unbind("SUPER + SHIFT + G")
 hl.unbind("SUPER + SHIFT + ALT + G")
 hl.unbind("SUPER + SHIFT + S") -- was Google Maps; repurposed for the screen-draw overlay
@@ -13,23 +13,40 @@ hl.unbind("SUPER + SHIFT + D") -- redundant Docker dup (SUPER+D already opens it
 
 -- App bindings
 o.bind("SUPER + O", "Obsidian", { launch = "obsidian", focus = "^obsidian$" })
--- webapp binds carry an explicit `focus` match (class/title regex) so the key
--- switches to the existing tab/window instead of silently opening a new one
--- behind whatever's on screen (Chromium's single-instance launch never
--- focuses on its own). Composer-style binds (temp chat, new post) are
--- deliberately left without focus - they're meant to open fresh each time.
-o.bind("SUPER + C", "Calendar", { webapp = "https://calendar.google.com/calendar/u/0/r?pli=1", focus = "calendar" })
-o.bind("SUPER + E", "Email", { webapp = "https://www.gmail.com/", focus = "gmail" })
-o.bind("SUPER + A", "ChatGPT", { webapp = "https://chatgpt.com", focus = "chatgpt" })
+o.bind("SUPER + B", "Floating browser", os.getenv("HOME") .. "/.config/hypr/floating-browser.sh")
+-- Steady-state webapp binds use `launch` (not `webapp`) together with `focus`:
+-- `{ webapp = url, focus = ... }` ignores the focus pattern entirely and
+-- matches on the bind's description instead (see o.launch_webapp_sole), which
+-- silently fails to focus anything whose window title/class doesn't contain
+-- the description text (e.g. "Email" never matches a Gmail window). Pairing
+-- `launch = "omarchy-launch-webapp <url>"` with an explicit `focus` regex
+-- goes through o.launch_sole, which actually honors that pattern. Composer-
+-- style binds (temp chat, new post) are deliberately left without focus -
+-- they're meant to open fresh each time.
+o.bind("SUPER + SHIFT + C", "Calendar", {
+  launch = "omarchy-launch-webapp https://calendar.google.com/calendar/u/0/r?pli=1",
+  focus = "calendar\\.google\\.com",
+})
+o.bind("SUPER + E", "Email", {
+  launch = "omarchy-launch-webapp https://www.gmail.com/",
+  focus = "www\\.gmail\\.com",
+})
+o.bind("SUPER + A", "ChatGPT", { launch = "omarchy-launch-webapp https://chatgpt.com", focus = "chatgpt\\.com" })
 o.bind("SUPER + ALT + A", "ChatGPT Temporary", { webapp = "https://chatgpt.com/?temporary-chat=true" })
-o.bind("SUPER + SHIFT + A", "Claude", { webapp = "https://claude.ai/", focus = "claude" })
-o.bind("SUPER + X", "X", { webapp = "https://x.com/", focus = "x.com" })
+o.bind("SUPER + SHIFT + A", "Claude", { launch = "omarchy-launch-webapp https://claude.ai/", focus = "claude\\.ai" })
+o.bind("SUPER + X", "X", { launch = "omarchy-launch-webapp https://x.com/", focus = "x\\.com" })
 o.bind("SUPER + SHIFT + X", "X Post", { webapp = "https://x.com/compose/post" })
-o.bind("SUPER + Y", "YouTube", { webapp = "https://youtube.com/", focus = "youtube" })
-o.bind("SUPER + SHIFT + G", "WhatsApp", { webapp = "https://web.whatsapp.com/", focus = "whatsapp" })
-o.bind("SUPER + SHIFT + ALT + G", "Telegram", { webapp = "https://web.telegram.org/", focus = "telegram" })
-o.bind("SUPER + SHIFT + CTRL + G", "Google Messages", { webapp = "https://messages.google.com/web/conversations", focus = "messages.google" })
-o.bind("SUPER + SHIFT + P", "Google Photos", { webapp = "https://photos.google.com/", focus = "photos.google" })
+o.bind("SUPER + Y", "YouTube", { launch = "omarchy-launch-webapp https://youtube.com/", focus = "youtube\\.com" })
+o.bind("SUPER + SHIFT + G", "WhatsApp", { launch = "omarchy-launch-webapp https://web.whatsapp.com/", focus = "whatsapp\\.com" })
+o.bind("SUPER + SHIFT + ALT + G", "Telegram", { launch = "omarchy-launch-webapp https://web.telegram.org/", focus = "telegram\\.org" })
+o.bind("SUPER + SHIFT + CTRL + G", "Google Messages", {
+  launch = "omarchy-launch-webapp https://messages.google.com/web/conversations",
+  focus = "messages\\.google\\.com",
+})
+o.bind("SUPER + SHIFT + P", "Google Photos", {
+  launch = "omarchy-launch-webapp https://photos.google.com/",
+  focus = "photos\\.google\\.com",
+})
 o.bind("SUPER + SHIFT + W", "Typora", "uwsm-app -- typora --enable-wayland-ime")
 o.bind("SUPER + SHIFT + SLASH", "Passwords", "uwsm-app -- 1password")
 o.bind("SUPER + D", "Docker", "omarchy-launch-tui lazydocker")
