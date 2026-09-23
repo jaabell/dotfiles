@@ -1,5 +1,6 @@
 import QtQuick
 import Quickshell.Io
+import qs.Commons
 import qs.Ui
 
 BarWidget {
@@ -44,7 +45,7 @@ BarWidget {
       anchors.centerIn: parent
       text: "VNC MODE"
       color: "#ffffff"
-      font.family: root.fontFamily
+      font.family: root.bar ? root.bar.fontFamily : Style.font.family
       font.pixelSize: Style.font.caption
       font.bold: true
     }
